@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
+import FilterDropdown from "./components/FilterDropdown";
 import "./App.css";
 import { saveToLocalStorage, loadFromLocalStorage } from "./utils/localStorage";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [filterType, setFilterType] = useState("All");
 
   useEffect(() => {
     setTodos(loadFromLocalStorage);
@@ -48,12 +50,14 @@ function App() {
     <div className="app">
       <h1>Todo App</h1>
       <TodoForm addTodo={addTodo} />
+      <FilterDropdown filterType={filterType} setFilterType={setFilterType} />
       <TodoList
         todos={todos}
         deleteTodo={deleteTodo}
         toggleTodo={toggleTodo}
         editTodo={editTodo}
         editDueDate={editDueDate}
+        filterType={filterType}
       />
     </div>
   );

@@ -1,12 +1,25 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, deleteTodo, toggleTodo, editTodo, editDueDate }) => {
+const TodoList = ({
+  todos,
+  deleteTodo,
+  toggleTodo,
+  editTodo,
+  editDueDate,
+  filterType,
+}) => {
+  const filteredTodos = todos.filter((todo) => {
+    if (filterType === "Completed") return todo.completed;
+    if (filterType === "Pending") return !todo.completed;
+    if (filterType === "High Priority") return todo.priority === "High";
+    return true;
+  });
   return (
-    <div>
+    <ul>
       {" "}
       {todos.length === 0 ? <p>No tasks found!</p> : null}
-      {todos.map((todo) => (
+      {filteredTodos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
@@ -16,7 +29,7 @@ const TodoList = ({ todos, deleteTodo, toggleTodo, editTodo, editDueDate }) => {
           editDueDate={editDueDate}
         />
       ))}
-    </div>
+    </ul>
   );
 };
 
