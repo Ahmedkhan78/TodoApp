@@ -24,11 +24,19 @@ function App() {
     setTodos(newTodos);
     localStorage.setItem("todos", JSON.stringify(newTodos));
   };
+
+  const toggleTodo = (id) => {
+    const updatedTodos = todos.map((todo) => {
+      return todo.id === id ? { ...todo, completed: !todo.completed } : todo;
+    });
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
   return (
     <div className="app">
       <h1>Todo App</h1>
       <TodoForm addTodo={addTodo} />
-      <TodoList todos={todos} deleteTodo={deleteTodo} />
+      <TodoList todos={todos} deleteTodo={deleteTodo} toggleTodo={toggleTodo} />
     </div>
   );
 }

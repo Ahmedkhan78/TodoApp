@@ -1,14 +1,19 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, deleteTodo }) => {
+const TodoList = ({ todos, deleteTodo, toggleTodo }) => {
   return (
     <div>
       {" "}
       {todos.length === 0 ? <p>No tasks found!</p> : null}
       {/* ✅ Yahan () brackets ka use karein taaki `map` function return kare */}
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          deleteTodo={deleteTodo}
+          toggleTodo={toggleTodo}
+        />
       ))}
     </div>
   );
