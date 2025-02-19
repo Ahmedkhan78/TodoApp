@@ -1,12 +1,11 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, deleteTodo, toggleTodo, editTodo }) => {
+const TodoList = ({ todos, deleteTodo, toggleTodo, editTodo, editDueDate }) => {
   return (
     <div>
       {" "}
       {todos.length === 0 ? <p>No tasks found!</p> : null}
-      {/* ✅ Yahan () brackets ka use karein taaki `map` function return kare */}
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -14,6 +13,7 @@ const TodoList = ({ todos, deleteTodo, toggleTodo, editTodo }) => {
           deleteTodo={deleteTodo}
           toggleTodo={toggleTodo}
           editTodo={editTodo}
+          editDueDate={editDueDate}
         />
       ))}
     </div>

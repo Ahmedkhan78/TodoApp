@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import EditDueDate from "./EditDueDate";
 
-const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo }) => {
+const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTask, setNewTask] = useState(todo.task);
 
@@ -8,6 +9,7 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo }) => {
     editTodo(todo.id, newTask);
     setIsEditing(false);
   };
+
   return (
     <div
       style={{
@@ -38,6 +40,8 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo }) => {
           </h3>
           <p>Priority: {todo.priority}</p>
           <p>Category: {todo.category}</p>
+
+          <EditDueDate todo={todo} editDueDate={editDueDate} />
 
           <label>
             <input

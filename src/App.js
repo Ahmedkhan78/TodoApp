@@ -39,6 +39,13 @@ function App() {
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
+  const editDueDate = (id, newDate) => {
+    const updatedDueDate = todos.map((todo) =>
+      todo.id === id ? { ...todo, dueDate: newDate } : todo
+    );
+    setTodos(updatedDueDate);
+    localStorage.setItem("todos", JSON.stringify(updatedDueDate));
+  };
   return (
     <div className="app">
       <h1>Todo App</h1>
@@ -48,6 +55,7 @@ function App() {
         deleteTodo={deleteTodo}
         toggleTodo={toggleTodo}
         editTodo={editTodo}
+        editDueDate={editDueDate}
       />
     </div>
   );

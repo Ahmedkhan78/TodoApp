@@ -4,6 +4,7 @@ const TodoForm = ({ addTodo }) => {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [category, setCategory] = useState("Work");
+  const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,11 +14,13 @@ const TodoForm = ({ addTodo }) => {
         task,
         priority,
         category,
+        dueDate,
         completed: false,
       });
       setTask("");
       setPriority("Medium");
       setCategory("Work");
+      setDueDate("");
     }
   };
   return (
@@ -37,6 +40,11 @@ const TodoForm = ({ addTodo }) => {
         <option value="Personal">Personal</option>
         <option value="Work">Work</option>
       </select>
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
       <button type="submit">Add Todo</button>
     </form>
   );
