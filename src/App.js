@@ -2,27 +2,25 @@ import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import "./App.css";
+import { saveToLocalStorage, loadFromLocalStorage } from "./utils/localStorage";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    const savedTodos = JSON.parse(localStorage.getItem("todos"));
-    if (savedTodos) {
-      setTodos(savedTodos);
-    }
+    setTodos(loadFromLocalStorage);
   }, []);
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+    saveToLocalStorage(newTodos);
   };
 
   const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
-    localStorage.setItem("todos", JSON.stringify(newTodos));
+    saveToLocalStorage(newTodos);
   };
 
   const toggleTodo = (id) => {
@@ -30,21 +28,21 @@ function App() {
       return todo.id === id ? { ...todo, completed: !todo.completed } : todo;
     });
     setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    saveToLocalStorage(updatedTodos);
   };
   const editTodo = (id, newTask) => {
     const updatedTodos = todos.map((todo) => {
       return todo.id === id ? { ...todo, task: newTask } : todo;
     });
     setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    saveToLocalStorage(updatedTodos);
   };
   const editDueDate = (id, newDate) => {
     const updatedDueDate = todos.map((todo) =>
       todo.id === id ? { ...todo, dueDate: newDate } : todo
     );
     setTodos(updatedDueDate);
-    localStorage.setItem("todos", JSON.stringify(updatedDueDate));
+    saveToLocalStorage(updatedDueDate);
   };
   return (
     <div className="app">
