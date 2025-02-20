@@ -2,16 +2,32 @@ import React, { useEffect, useState } from "react";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import FilterDropdown from "./components/FilterDropdown";
-import "./App.css";
-import { saveToLocalStorage, loadFromLocalStorage } from "./utils/localStorage";
+import useDarkMode from "./hooks/useDarkMode";
+import "./index.css";
+import {
+  saveToLocalStorage,
+  loadFromLocalStorage,
+  sortTodos,
+} from "./utils/helperFunction";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => loadFromLocalStorage() || []);
   const [filterType, setFilterType] = useState("All");
+  const [sortBy, setSortBy] = useState("");
+  const [isDarkMode, toggleMode] = useDarkMode();
 
   useEffect(() => {
-    setTodos(loadFromLocalStorage);
+    setTodos(loadFromLocalStorage());
   }, []);
+
+  // SortBY Effect
+  useEffect(() => {
+    if (sortBy) {
+      const sortedTodos = sortTodos(todos, sortBy);
+      setTodos(sortedTodos);
+      saveToLocalStorage(sortedTodos);
+    }
+  }, [sortBy, todos]);
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
@@ -49,8 +65,16 @@ function App() {
   return (
     <div className="app">
       <h1>Todo App</h1>
+      <button onClick={toggleMode} className="text-green-700">
+        {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      </button>
       <TodoForm addTodo={addTodo} />
-      <FilterDropdown filterType={filterType} setFilterType={setFilterType} />
+      <FilterDropdown
+        filterType={filterType}
+        setFilterType={setFilterType}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
       <TodoList
         todos={todos}
         deleteTodo={deleteTodo}

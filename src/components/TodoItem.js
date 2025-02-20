@@ -51,7 +51,7 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
             />
             Mark as Complete
           </label>
-          <button onClick={() => setIsEditing(true)}>✏️ Edit</button>
+          <button onClick={() => setIsEditing(true)}>Edit</button>
           <button onClick={() => deleteTodo(todo.id)}>DeleteTodo</button>
         </>
       )}
