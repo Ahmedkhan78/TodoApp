@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import FilterDropdown from "./components/FilterDropdown";
@@ -64,7 +65,7 @@ function App() {
   };
   return (
     <div className="app">
-      <h1>Todo App</h1>
+      <h1 className="text-green-700 text-xl">Todo App</h1>
       <button onClick={toggleMode} className="text-green-700">
         {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
       </button>
