@@ -64,26 +64,44 @@ function App() {
     saveToLocalStorage(updatedDueDate);
   };
   return (
-    <div className="app">
-      <h1 className="text-green-700 text-xl">Todo App</h1>
-      <button onClick={toggleMode} className="text-green-700">
+    <div
+      className={`min-h-screen py-6 px-4 sm:px-8 ${
+        isDarkMode
+          ? "bg-dark-green text-white"
+          : "bg-light-beige text-dark-green"
+      } transition-all duration-300 ease-in-out`}
+    >
+      <h1 className="text-warm-brown text-3xl sm:text-4xl font-semibold text-center mb-4">
+        Todo App
+      </h1>
+      <button
+        onClick={toggleMode}
+        className="bg-warm-brown hover:bg-olive-green text-white py-2 px-4 rounded-full focus:outline-none focus:ring-warm-brown mb-4 block mx-auto"
+      >
         {isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
       </button>
-      <TodoForm addTodo={addTodo} />
-      <FilterDropdown
-        filterType={filterType}
-        setFilterType={setFilterType}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
-      <TodoList
-        todos={todos}
-        deleteTodo={deleteTodo}
-        toggleTodo={toggleTodo}
-        editTodo={editTodo}
-        editDueDate={editDueDate}
-        filterType={filterType}
-      />
+      <div className="flex flex-col sm:flex-row gap-y-6 sm:gap-y-0 sm:gap-x-12">
+        <div className="space-y-2 sm:space-y-8 w-full sm:w-1/2 sm:ml-0 sm:mr-0  sm:p-6">
+          <TodoForm addTodo={addTodo} />
+        </div>
+        <div className="space-y-3 my-5 w-full sm:w-1/2 ">
+          <FilterDropdown
+            filterType={filterType}
+            setFilterType={setFilterType}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+          />
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            deleteTodo={deleteTodo}
+            toggleTodo={toggleTodo}
+            editTodo={editTodo}
+            editDueDate={editDueDate}
+            filterType={filterType}
+          />
+        </div>
+      </div>
     </div>
   );
 }
