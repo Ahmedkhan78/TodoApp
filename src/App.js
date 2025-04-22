@@ -82,7 +82,7 @@ function App() {
       </button>
       <div className="flex flex-col sm:flex-row gap-y-6 sm:gap-y-0 sm:gap-x-12">
         <div className="space-y-2 sm:space-y-8 w-full sm:w-1/2 sm:ml-0 sm:mr-0  sm:p-6">
-          <TodoForm addTodo={addTodo} />
+          <TodoForm addTodo={addTodo} isDarkMode={isDarkMode} />
         </div>
         <div className="space-y-3 my-5 w-full sm:w-1/2 ">
           <FilterDropdown

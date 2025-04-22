@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ addTodo, isDarkMode }) => {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("Medium");
   const [category, setCategory] = useState("Work");
@@ -23,13 +23,20 @@ const TodoForm = ({ addTodo }) => {
       setDueDate("");
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white dark:bg-dark-green p-6 rounded-lg shadow-md max-w-md ml-5"
+      className={`${
+        isDarkMode ? "bg-warm-brown" : "bg-dark-green"
+      } p-6 rounded-lg shadow-md max-w-md ml-5`}
     >
-      <h2 className="text-2xl text-center text-warm-brown mb-6 font-semibold">
-        Add Todo
+      <h2
+        className={`text-2xl text-center  mb-6 font-semibold ${
+          isDarkMode ? "text-olive-green" : "text-light-beige"
+        }`}
+      >
+        Todo
       </h2>
 
       <input
@@ -37,26 +44,83 @@ const TodoForm = ({ addTodo }) => {
         placeholder="Add a task"
         value={task}
         onChange={(e) => setTask(e.target.value)}
-        className="w-full p-4 mb-4 border border-olive-green rounded-md focus:outline-none focus:ring-2 focus:ring-warm-brown"
+        className={`w-full p-4 mb-4  rounded-md focus:outline-none focus:ring-2 ${
+          isDarkMode
+            ? "border border-olive-green focus:ring-warm-brown text-olive-green"
+            : "border border-warm-brown focus:ring-dark-green text-warm-brown "
+        }`}
       />
 
       <div className="flex flex-col sm:flex-row gap-4 mb-4">
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
-          className="w-full sm:w-48 p-3 border border-olive-green rounded-md focus:outline-none focus:ring-2 focus:ring-warm-brown"
+          className={`w-full sm:w-48 p-3  rounded-md focus:outline-none focus:ring-2 ${
+            isDarkMode
+              ? "border border-olive-green focus:ring-warm-brown text-olive-green"
+              : "border border-warm-brown focus:ring-dark-green text-warm-brown "
+          }`}
         >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option
+            value="Low"
+            className={`${
+              isDarkMode
+                ? "bg-olive-green text-warm-brown"
+                : "bg-warm-brown text-olive-green"
+            }`}
+          >
+            Low
+          </option>
+          <option
+            value="Medium"
+            className={`${
+              isDarkMode
+                ? "bg-olive-green text-warm-brown"
+                : "bg-warm-brown text-olive-green"
+            }`}
+          >
+            Medium
+          </option>
+          <option
+            value="High"
+            className={`${
+              isDarkMode
+                ? "bg-olive-green text-warm-brown"
+                : "bg-warm-brown text-olive-green"
+            }`}
+          >
+            High
+          </option>
         </select>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full sm:w-48 p-3 border border-olive-green rounded-md focus:outline-none focus:ring-2 focus:ring-warm-brown"
+          className={`w-full sm:w-48 p-3  rounded-md focus:outline-none focus:ring-2 ${
+            isDarkMode
+              ? "border border-olive-green focus:ring-warm-brown text-olive-green"
+              : "border border-warm-brown focus:ring-dark-green text-warm-brown "
+          }`}
         >
-          <option value="Personal">Personal</option>
-          <option value="Work">Work</option>
+          <option
+            value="Personal"
+            className={`${
+              isDarkMode
+                ? "bg-olive-green text-warm-brown"
+                : "bg-warm-brown text-olive-green"
+            }`}
+          >
+            Personal
+          </option>
+          <option
+            value="Work"
+            className={`${
+              isDarkMode
+                ? "bg-olive-green text-warm-brown"
+                : "bg-warm-brown text-olive-green"
+            }`}
+          >
+            Work
+          </option>
         </select>
       </div>
 
@@ -64,12 +128,20 @@ const TodoForm = ({ addTodo }) => {
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
-        className="w-full p-3 mb-4 border border-olive-green rounded-md focus:outline-none focus:ring-2 focus:ring-warm-brown"
+        className={`w-full p-4 mb-4  rounded-md focus:outline-none focus:ring-2 ${
+          isDarkMode
+            ? "border border-olive-green focus:ring-warm-brown text-olive-green"
+            : "border border-warm-brown focus:ring-dark-green text-warm-brown "
+        }`}
       />
 
       <button
         type="submit"
-        className="w-full py-3 text-white bg-warm-brown rounded-md hover:bg-olive-green focus:outline-none focus:ring-2 focus:ring-warm-brown"
+        className={`w-full py-3 rounded-md focus:outline-none focus:ring-2 font-semibold ${
+          isDarkMode
+            ? "bg-olive-green hover:bg-light-beige hover:text-warm-brown focus:ring-warm-brown"
+            : "bg-warm-brown hover:bg-olive-green hover:text-light-beige text-white focus:ring-olive-green"
+        }`}
       >
         Add Todo
       </button>
