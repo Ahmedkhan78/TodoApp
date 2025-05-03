@@ -4,7 +4,14 @@ import EditDueDate from "./EditDueDate";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
+const TodoItem = ({
+  todo,
+  toggleTodo,
+  deleteTodo,
+  editTodo,
+  editDueDate,
+  isDarkMode,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newTask, setNewTask] = useState(todo.task);
 
@@ -33,7 +40,15 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`${todo.completed ? "bg-warm-brown" : "bg-olive-green"}`}
+      className={`${
+        isDarkMode
+          ? todo.completed
+            ? "bg-olive-green" // If Dark mode and completed
+            : "bg-light-beige" // If Dark mode and not completed
+          : todo.completed
+          ? "bg-warm-brown" // If Light mode and completed
+          : "bg-olive-green" // If Light mode and not completed
+      }`}
     >
       {" "}
       {isEditing ? (
@@ -42,7 +57,7 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
             type="text"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="border p-2 rounded-md"
+            className="p-2 rounded-md text-black"
           />
           <button
             onClick={handleEdit}
@@ -61,22 +76,38 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
         <>
           <h3
             style={{ textDecoration: todo.completed ? "line-through" : "none" }}
-            className="text-5xl font-semibold text-center text-light-beige bg-warm-brown rounded-2xl"
+            className={`text-5xl font-semibold text-center  rounded-2xl ${
+              isDarkMode
+                ? "text-light-beige bg-warm-brown"
+                : "text-warm-brown bg-light-beige"
+            }`}
           >
             {todo.task}
           </h3>
           <div className="flex justify-between">
             <div className="text-lg pl-5">
-              <p className="text-lg text-light-beige">
+              <p
+                className={`text-lg ${
+                  isDarkMode ? "text-olive-green" : "text-light-beige"
+                }`}
+              >
                 Priority: {todo.priority}
               </p>
-              <p className="text-lg text-light-beige">
+              <p
+                className={`text-lg ${
+                  isDarkMode ? "text-olive-green" : "text-light-beige"
+                }`}
+              >
                 Category: {todo.category}
               </p>
             </div>
 
             <div className="text-start pr-5">
-              <EditDueDate todo={todo} editDueDate={editDueDate} />
+              <EditDueDate
+                todo={todo}
+                editDueDate={editDueDate}
+                isDarkMode={isDarkMode}
+              />
 
               <label className="flex items-center space-x-2">
                 <input
@@ -85,7 +116,13 @@ const TodoItem = ({ todo, toggleTodo, deleteTodo, editTodo, editDueDate }) => {
                   onChange={() => toggleTodo(todo.id)}
                   className="text-dark-green"
                 />
-                <span className="text-light-beige">Mark as Complete</span>
+                <span
+                  className={`${
+                    isDarkMode ? "text-dark-green" : "text-light-beige"
+                  }`}
+                >
+                  Mark as Complete
+                </span>
               </label>
             </div>
           </div>

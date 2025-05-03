@@ -99,6 +99,7 @@ function App() {
             editTodo={editTodo}
             editDueDate={editDueDate}
             filterType={filterType}
+            isDarkMode={isDarkMode}
           />
         </div>
       </div>

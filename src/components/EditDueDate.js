@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 
-const EditDueDate = ({ todo, editDueDate }) => {
+const EditDueDate = ({ todo, editDueDate, isDarkMode }) => {
   const [isEditingDate, setIsEditingDate] = useState(false);
   const [newDueDate, setNewDueDate] = useState(todo.dueDate || "");
+  const today = new Date().toISOString().split("T")[0];
+
   const handleDueDate = () => {
     editDueDate(todo.id, newDueDate);
     setIsEditingDate(false);
   };
-  const today = new Date().toISOString().split("T")[0];
+
+  const isOverdue = todo.dueDate && todo.dueDate < today;
+
   return (
     <>
       {isEditingDate ? (
@@ -16,6 +20,11 @@ const EditDueDate = ({ todo, editDueDate }) => {
             type="date"
             value={newDueDate}
             onChange={(e) => setNewDueDate(e.target.value)}
+            className={`p-2 rounded-md border ${
+              isDarkMode
+                ? "bg-dark-green text-light-beige border-gray-500"
+                : "bg-light-beige text-dark-green border-olive-green"
+            }`}
           />
           <button
             onClick={handleDueDate}
@@ -33,19 +42,25 @@ const EditDueDate = ({ todo, editDueDate }) => {
       ) : (
         <>
           <p
-            style={{
-              color:
-                todo.dueDate && todo.dueDate < today ? "red" : "light-beige",
-            }}
-            className="text-light-beige"
+            className={`${
+              isOverdue
+                ? "text-red-500"
+                : isDarkMode
+                ? "text-dark-green"
+                : "text-light-beige"
+            }`}
           >
-            Due Date: {todo.dueDate || "No DeadLine"}
+            Due Date: {todo.dueDate || "No Deadline"}
           </p>
           <button
             onClick={() => setIsEditingDate(true)}
-            className="mt-2 bg-light-beige text-dark-green px-4 py-2 rounded-md"
+            className={`mt-2 px-4 py-2 rounded-md ${
+              isDarkMode
+                ? "bg-warm-brown text-light-beige"
+                : "bg-light-beige text-dark-green"
+            }`}
           >
-            Edit due Date
+            Edit Due Date
           </button>
         </>
       )}

@@ -19,6 +19,7 @@ const TodoList = ({
   editTodo,
   editDueDate,
   filterType,
+  isDarkMode,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -79,6 +80,7 @@ const TodoList = ({
               toggleTodo={toggleTodo}
               editTodo={editTodo}
               editDueDate={editDueDate}
+              isDarkMode={isDarkMode}
               draggable
             />
           ))}
